@@ -125,3 +125,15 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.devcontainer
+.devcontainer/
+.devcontainer/*
+
+.github
+.github/
+.github/*
+
+.vscode
+.vscode/
+.vscode/*
