@@ -1,3 +1,4 @@
 User-Agent: *
 Allow: /
+Sitemap: https://03motorsport.com/sitemap.xml
 
