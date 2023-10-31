@@ -10,4 +10,7 @@ const navItemClick = ($item) => {
 			$link.classList.remove("active");
 		}
 	});
+	
+	const $navbar = document.querySelector("#navbarCollapse");
+	$navbar.classList.toggle("show");
 };
