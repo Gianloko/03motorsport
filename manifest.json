@@ -1,0 +1,29 @@
+{
+  "name": "03motorsport",
+  "short_name": "03motorsport",
+  "icons": [
+    {
+      "src": "/img/favicons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/favicons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ff0000",
+  "display": "standalone",
+  "id": "03motorsport",
+  "description": "Centro servizi meccatronici",
+  "start_url": "/",
+  "dir": "auto",
+  "lang": "it",
+  "orientation": "any",
+  "categories": [
+    "business",
+    "utilities"
+  ]
+}
