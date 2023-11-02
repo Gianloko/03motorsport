@@ -137,3 +137,7 @@ yarn-error.log*
 .vscode
 .vscode/
 .vscode/*
+
+.misc
+.misc/
+.misc/*
