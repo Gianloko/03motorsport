@@ -27,6 +27,9 @@
     "utilities"
   ],
   "scope": "https://*.03motorsport.com",
+  "scope_extensions": [
+    {"origin": "*.03motorsport.com"}
+  ],
   "display_override": [
     "standalone",
     "window-controls-overlay"

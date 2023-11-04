@@ -771,9 +771,15 @@
 		<script src="js/utils.js"></script>
 		
 		<script type="text/javascript">
-		    if (typeof navigator.serviceWorker !== 'undefined') {
-			    navigator.serviceWorker.register('sw.js')
-		    }
+		    if ("serviceWorker" in navigator) {
+				if (navigator.serviceWorker.controller) {
+					console.log("Active service worker found, no need to register");
+				} else {
+					navigator.serviceWorker.register('sw.js', {scope: '/'}).then(function (reg) {
+						console.log("Service worker registered");
+					});
+				}
+			}
 		</script>
 
 	</body>
