@@ -15,6 +15,11 @@
 		<meta content="03motorsport, Meccatronica" name="keywords">
 		<meta content="03motorsport Azienda di Meccatronica" name="description">
 		
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<script type="module" src="js/pwa-install.bundle.js"></script>
 
 		<!-- Favicon -->
 		<link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-touch-icon.png">
@@ -781,6 +786,60 @@
 				}
 			}
 		</script>
+		
+		<section class="control-panel">
+		<fieldset>
+			<legend>
+				Dialog manual control
+			</legend>
+			<button onclick="pwaInstall.showDialog()">Show</button>
+			<button onclick="pwaInstall.showDialog(true)">Show(forced)</button>
+			<button onclick="pwaInstall.hideDialog()">Hide</button><hr>
+			<button onclick="pwaInstall.install()">Install</button>
+			<button onclick="getRelated()">Get related apps</button><hr>
+			<button onclick="forceApple()">Force apple</button>
+			<button onclick="forceApple(false)">Force chrome</button>
+		</fieldset>
+		<fieldset>
+			<legend>
+				Events
+			</legend>
+			<textarea readonly id="events-area" rows="10">
+
+			</textarea>
+		</fieldset>
+	</section>
+
+	<pwa-install id="pwa-install" manifest-url="manifest.json"></pwa-install>
+
+	<script type="text/javascript">
+		var pwaInstall = document.getElementById("pwa-install");
+
+		document.getElementById('events-area').value = "";
+		const logMessage = (message) => {
+			console.log(message);
+			document.getElementById('events-area').value+=`>: ${message}\r\n`;
+		}
+
+		const getRelated = () => {
+			pwaInstall.getInstalledRelatedApps().then(
+				(result) => {
+					logMessage(result.toString() || 'None');
+				}
+			)
+		}
+
+		const forceApple = (apple = true) => {
+			pwaInstall.isAppleMobilePlatform = apple;
+			pwaInstall.hideDialog();
+			pwaInstall.showDialog();
+		}
+
+		pwaInstall.addEventListener('pwa-install-success-event', (event) => {logMessage(event.detail.message)});
+		pwaInstall.addEventListener('pwa-install-fail-event', (event) => {logMessage(event.detail.message)});
+		pwaInstall.addEventListener('pwa-user-choice-result-event', (event) => {logMessage(event.detail.message)});
+		pwaInstall.addEventListener('pwa-install-available-event', (event) => {logMessage(event.detail.message)});
+	</script>
 
 	</body>
 
