@@ -810,10 +810,10 @@
 
 				</textarea>
 			</fieldset>
-		</section>
+		</section>-->
 
 		<script type="text/javascript">
-			var pwaInstall = document.getElementById("pwa-install");
+			/**var pwaInstall = document.getElementById("pwa-install");
 
 			document.getElementById('events-area').value = "";
 			const logMessage = (message) => {
@@ -838,8 +838,11 @@
 			pwaInstall.addEventListener('pwa-install-success-event', (event) => {logMessage(event.detail.message)});
 			pwaInstall.addEventListener('pwa-install-fail-event', (event) => {logMessage(event.detail.message)});
 			pwaInstall.addEventListener('pwa-user-choice-result-event', (event) => {logMessage(event.detail.message)});
-			pwaInstall.addEventListener('pwa-install-available-event', (event) => {logMessage(event.detail.message)});
-		</script>-->
+			pwaInstall.addEventListener('pwa-install-available-event', (event) => {logMessage(event.detail.message)});**/
+			
+			var pwaInstall = document.getElementById("pwa-install");
+			pwaInstall.showDialog();
+		</script>
 
 	</body>
 
