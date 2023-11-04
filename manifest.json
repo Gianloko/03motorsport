@@ -34,6 +34,12 @@
     "standalone",
     "window-controls-overlay"
   ],
+  "related_applications": [
+	{
+		"platform": "webapp",
+		"url": "manifest.json"
+	}
+  ]
   "iarc_rating_id": "18",
   "prefer_related_applications": false
 }
