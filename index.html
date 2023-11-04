@@ -19,6 +19,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<!-- PWA Module -->
 		<script type="module" src="js/pwa-install.bundle.js"></script>
 
 		<!-- Favicon -->
@@ -52,6 +53,8 @@
 	</head>
 
 	<body>
+		<pwa-install id="pwa-install" manifest-url="manifest.json"></pwa-install>
+	
 		<!-- Spinner Start -->
 		<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
 			<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -114,6 +117,7 @@
 						</div>
 					</div>-->
 					<a id="4" href="#contactUs" style="cursor: pointer;" onclick="navItemClick(this);" class="nav-item nav-link">Contattaci</a>
+					<a id="5" style="cursor: pointer;" onclick="pwaInstall.showDialog()" class="nav-item nav-link">Scarica l'app</a>
 				</div>
 				<a href="#contactUs" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Richiedi un preventivo!<i class="fa fa-arrow-right ms-3"></i></a>
 			</div>
@@ -787,8 +791,6 @@
 			}
 		</script>
 		
-		<pwa-install id="pwa-install" manifest-url="manifest.json"></pwa-install>
-		
 		<!--<section class="control-panel">
 			<fieldset>
 				<legend>
@@ -839,9 +841,6 @@
 			pwaInstall.addEventListener('pwa-install-fail-event', (event) => {logMessage(event.detail.message)});
 			pwaInstall.addEventListener('pwa-user-choice-result-event', (event) => {logMessage(event.detail.message)});
 			pwaInstall.addEventListener('pwa-install-available-event', (event) => {logMessage(event.detail.message)});**/
-			
-			var pwaInstall = document.getElementById("pwa-install");
-			pwaInstall.showDialog();
 		</script>
 
 	</body>
