@@ -11,6 +11,13 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox
 // TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "offline.html";
 const offlineFallbackPage = "offline.html";
 
+// Add whichever assets you want to pre-cache here:
+const PRECACHE_ASSETS = [
+    '/js/',
+    '/img/',
+	'/css/'
+]
+
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
@@ -22,6 +29,10 @@ self.addEventListener('install', async (event) => {
     caches.open(CACHE)
       .then((cache) => cache.add(offlineFallbackPage))
   );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(self.clients.claim());
 });
 
 if (workbox.navigationPreload.isSupported()) {
