@@ -769,6 +769,13 @@
 		<!-- Template Javascript -->
 		<script src="js/main.js"></script>
 		<script src="js/utils.js"></script>
+		
+		<script type="text/javascript">
+		    if (typeof navigator.serviceWorker !== 'undefined') {
+			    navigator.serviceWorker.register('sw.js')
+		    }
+		</script>
+
 	</body>
 
 </html>
