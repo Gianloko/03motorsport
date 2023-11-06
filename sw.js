@@ -3,7 +3,6 @@
 //A copy of each page is stored in the cache as your visitors view them. This allows a visitor to load any previously viewed 
 //page while they are offline. This then adds the "offline page" that allows you to customize the message and experience if the 
 //app is offline, and the page is not in the cache.
-
 const CACHE = "pwabuilder-offline-page";
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
@@ -15,56 +14,86 @@ const offlineFallbackPage = "offline.html";
 const PRECACHE_ASSETS = [
     '/js/',
     '/img/',
-	'/css/'
+    '/css/'
 ]
 
 self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
+    if (event.data && event.data.type === "SKIP_WAITING") {
+        self.skipWaiting();
+    }
 });
 
 self.addEventListener('install', async (event) => {
-  event.waitUntil(
-    caches.open(CACHE)
-      .then((cache) => cache.add(offlineFallbackPage))
-  );
+    event.waitUntil(
+        caches.open(CACHE)
+        .then((cache) => cache.add(offlineFallbackPage))
+    );
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
+    event.waitUntil(self.clients.claim());
 });
 
 if (workbox.navigationPreload.isSupported()) {
-  workbox.navigationPreload.enable();
+    workbox.navigationPreload.enable();
 }
 
 workbox.routing.registerRoute(
-  new RegExp('/*'),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: CACHE
-  })
+    new RegExp('/*'),
+    new workbox.strategies.StaleWhileRevalidate({
+        cacheName: CACHE
+    })
 );
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.mode === 'navigate') {
-    event.respondWith((async () => {
-      try {
-        const preloadResp = await event.preloadResponse;
+    if (event.request.mode === 'navigate') {
+        event.respondWith((async () => {
+            try {
+                const preloadResp = await event.preloadResponse;
 
-        if (preloadResp) {
-          return preloadResp;
-        }
+                if (preloadResp) {
+                    return preloadResp;
+                }
 
-        const networkResp = await fetch(event.request);
-        return networkResp;
-      } catch (error) {
+                const networkResp = await fetch(event.request);
+                return networkResp;
+            } catch (error) {
 
-        const cache = await caches.open(CACHE);
-        const cachedResp = await cache.match(offlineFallbackPage);
-        return cachedResp;
-      }
-    })());
+                const cache = await caches.open(CACHE);
+                const cachedResp = await cache.match(offlineFallbackPage);
+                return cachedResp;
+            }
+        })());
+    }
+});
+
+// Add an event listener for the `sync` event in your service worker.
+self.addEventListener('sync', event => {
+
+    // Check for correct tag on the sync event.
+    if (event.tag === 'database-sync') {
+
+        // Execute the desired behavior with waitUntil().
+        //event.waitUntil(
+
+            // This is just a hypothetical function for the behavior we desire.
+            //pushLocalDataToDatabase();
+        //);
+    }
+});
+
+// Listen for the `periodicsync` event.
+self.addEventListener('periodicsync', event => {
+
+  // Check for correct tag on the periodicSyncPermissionsync event.
+  if (event.tag === 'fetch-new-content') {
+
+    // Execute the desired behavior with waitUntil().
+    //event.waitUntil(
+
+      // This is just a hypothetical function for the behavior we desire.
+      //fetchNewContent();
+    //);
   }
 });
 

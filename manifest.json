@@ -40,6 +40,15 @@
 		"url": "manifest.json"
 	}
   ],
+  "launch_handler": {
+      "client_mode": "auto"
+  },
+  "protocol_handlers": [
+      {
+         "protocol": "web+mtspr",
+         "url": "/?track=%s"
+      }
+  ],
   "iarc_rating_id": "18",
   "prefer_related_applications": false
 }
