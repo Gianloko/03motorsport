@@ -778,9 +778,14 @@
 		<!-- Template Javascript -->
 		<script src="js/main.js"></script>
 		<script src="js/utils.js"></script>
-		
+
 		<script type="text/javascript">
-		    if ("serviceWorker" in navigator) {
+		
+			// Get main <pwa-install> element
+			var pwaInstall = document.getElementById("pwa-install");
+		
+			// Check Service Worker registration
+			if ("serviceWorker" in navigator) {
 				if (navigator.serviceWorker.controller) {
 					console.log("Active service worker found, no need to register");
 				} else {
@@ -789,40 +794,14 @@
 					});
 				}
 			}
-		</script>
-		
-		<!--<section class="control-panel">
-			<fieldset>
-				<legend>
-					Dialog manual control
-				</legend>
-				<button onclick="pwaInstall.showDialog()">Show</button>
-				<button onclick="pwaInstall.showDialog(true)">Show(forced)</button>
-				<button onclick="pwaInstall.hideDialog()">Hide</button><hr>
-				<button onclick="pwaInstall.install()">Install</button>
-				<button onclick="getRelated()">Get related apps</button><hr>
-				<button onclick="forceApple()">Force apple</button>
-				<button onclick="forceApple(false)">Force chrome</button>
-			</fieldset>
-			<fieldset>
-				<legend>
-					Events
-				</legend>
-				<textarea readonly id="events-area" rows="10">
-
-				</textarea>
-			</fieldset>
-		</section>-->
-
-		<script type="text/javascript">
-		
-			var pwaInstall = document.getElementById("pwa-install");
 			
+			// Show PWA Install Dialog
 			const installApp = () => {
 				pwaInstall.showDialog();
 				//pwaInstall.install();
 			}
 			
+			// Trigger Background Sync
 			const oneShotSync = async() => {
 				// Check to make sure Sync is supported.
 				if ('serviceWorker' in navigator && 'SyncManager' in window) {
@@ -841,6 +820,7 @@
 				}
 			}
 			
+			// Trigger Periodic Background Sync
 			const periodicSync = async() => {
 				// Query the user for permission.
 				const periodicSyncPermission = await navigator.permissions.query({
@@ -858,6 +838,7 @@
 				} 
 			}
 			
+			// Check if application context is PWA
 			const isPwa = () => {
 				if (window.matchMedia('(display-mode: standalone)').matches) {  
 					// do things here  
@@ -868,7 +849,6 @@
 				return false;
 			}
 			
-			//Check if context is PWA or not
 			if(isPwa()){
 			    document.querySelector("a[id='5']").style.display = "none";
 			}else{
