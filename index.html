@@ -117,7 +117,7 @@
 						</div>
 					</div>-->
 					<a id="4" href="#contactUs" style="cursor: pointer;" onclick="navItemClick(this);" class="nav-item nav-link">Contattaci</a>
-					<a id="5" style="cursor: pointer;" onclick="installApp();" class="nav-item nav-link">Scarica l'app</a>
+					<a id="5" style="cursor: pointer;" onclick="navItemClick(this);installApp();" class="nav-item nav-link">Scarica l'app</a>
 				</div>
 				<a href="#contactUs" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Richiedi un preventivo!<i class="fa fa-arrow-right ms-3"></i></a>
 			</div>
@@ -866,6 +866,13 @@
 					return true;
 				}
 				return false;
+			}
+			
+			//Check if context is PWA or not
+			if(isPwa()){
+			    document.querySelector("a[id='5']").style.display = "none";
+			}else{
+				document.querySelector("a[id='5']").style.display = "inline";
 			}
 
 			/**document.getElementById('events-area').value = "";
