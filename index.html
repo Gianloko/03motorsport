@@ -819,8 +819,8 @@
 			var pwaInstall = document.getElementById("pwa-install");
 			
 			const installApp = () => {
-				//pwaInstall.showDialog();
-				pwaInstall.install();
+				pwaInstall.showDialog();
+				//pwaInstall.install();
 			}
 			
 			const oneShotSync = async() => {
@@ -856,6 +856,16 @@
 					    minInterval: 24 * 60 * 60 * 1000
 				    });
 				} 
+			}
+			
+			const isPwa = () => {
+				if (window.matchMedia('(display-mode: standalone)').matches) {  
+					// do things here  
+					// set a variable to be used when calling something  
+					// e.g. call Google Analytics to track standalone use
+					return true;
+				}
+				return false;
 			}
 
 			/**document.getElementById('events-area').value = "";
