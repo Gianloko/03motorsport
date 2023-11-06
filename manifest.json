@@ -18,7 +18,7 @@
   "display": "standalone",
   "id": "03motorsport",
   "description": "Centro servizi meccatronici",
-  "start_url": "/",
+  "start_url": "https://03motorsport.com",
   "dir": "auto",
   "lang": "it",
   "orientation": "any",
