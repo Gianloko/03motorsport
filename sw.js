@@ -107,6 +107,9 @@ self.addEventListener("updatefound", () => {
 				// display a message to tell our users that
 				// there's a new service worker is installed
 				
+				// notify all clients with a Broadcast message update
+				const channel = new BroadcastChannel('sw-messages');
+				channel.postMessage({title: 'New update available'});
 			}
 		});
     }
