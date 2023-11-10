@@ -97,6 +97,21 @@ self.addEventListener('periodicsync', event => {
   }
 });
 
+//We can listen to the updatefound event to see if we have a new service worker.
+//If there is a service worker is installing, we listen to the statechange event,
+//once the install is finished, we can display a message to notify our users.
+self.addEventListener("updatefound", () => {
+    if (self.registration.installing) {
+		self.registration.installing.addEventListener("statechange", () => {
+			if (worker.state == "installed") {
+				// display a message to tell our users that
+				// there's a new service worker is installed
+				
+			}
+		});
+    }
+});
+
 // --- web push ---
 
 // self.addEventListener('push', (event) => {
