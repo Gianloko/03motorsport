@@ -764,7 +764,6 @@
 		</div>
 		<!-- Footer End -->
 
-
 		<!-- Back to Top -->
 		<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
@@ -784,8 +783,11 @@
 		<!-- Template Javascript -->
 		<script src="js/main.js"></script>
 		<script src="js/utils.js"></script>
+		<script src="js/notify.js"></script>
 
 		<script type="text/javascript">
+		
+			$.notify.defaults({ className: "info" });
 		
 			// Get main <pwa-install> element
 			var pwaInstall = document.getElementById("pwa-install");
@@ -805,6 +807,7 @@
 			const channel = new BroadcastChannel('sw-messages');
 			channel.addEventListener('message', event => {
 				console.log('Received', event.data);
+				$.notify(event.data.title, {position: "bottom-right"});
 			});
 			
 			// Show PWA Install Dialog
