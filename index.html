@@ -856,10 +856,34 @@
 				submitButtonId.disabled = !acceptTermsAndConditions.checked;
 			}
 			
-			const submitForm = event => {
+			const submitForm = async event => {
 				event.preventDefault();
-				//$('#spinner').addClass("show");
-				console.log("submitted");
+				$('#spinner').addClass("show");
+				
+				const uri = isLocalHost() ? "http://localhost:8080/request" : "https://webserver.03motorsport.com/request";
+				
+				const response = await fetch(uri, {
+					method: "POST",
+					headers: {
+						"Content-Type" : "application/json"
+					},
+					body: JSON.stringify({
+						"firstname": document.querySelector("#name").value,
+						"lastname": document.querySelector("#surname").value,
+						"email": document.querySelector("#email").value,
+						"service": document.querySelector("#service").value,
+						"subject": document.querySelector("#subject").value,
+						"message": document.querySelector("#message").value
+					})
+				});
+				
+				const responseJson = await response.json();
+				
+				//setTimeout(() => {
+				//	$('#spinner').removeClass("show");
+				//}, 2000)
+				
+				//console.log("submitted");
 			}
 			
 			const initialize = () => {
@@ -917,7 +941,11 @@
 						}
 					});
 				}
-			} 
+			}
+			
+			const isLocalHost = () => {
+				return window.location.host === "" || window.location.host === null || window.location.host === undefined;
+			}
 			
 			/****************************** MAIN THREAD *******************************/
 			
