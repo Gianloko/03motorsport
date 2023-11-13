@@ -894,6 +894,10 @@
 			}
 			
 			const requestNotification = async => {
+			
+				const iconImage = "/img/logo.png";
+				const notificationText = "Visita il sito 03motorsport!";
+			
 				if (!("Notification" in window)) {
 					// Check if the browser supports notifications
 					console.log("This browser does not support desktop notification");
@@ -901,7 +905,7 @@
 					// Check whether notification permissions have already been granted;
 					// if so, create a local notification
 					console.log("granted");
-					const notification = new Notification("Hi there!");
+					const notificationMsg = new Notification("Hai saputo la novità?", { body: notificationText, icon: iconImage });
 				} else if (Notification.permission !== "denied") {
 					// We need to ask the user for permission
 					console.log("denied");
@@ -909,7 +913,7 @@
 						// If the user accepts, let's create a local notification
 						if (permission === "granted") {
 							console.log("granted");
-							const notification = new Notification("Hi there!");
+							const notificationMsg = new Notification("Hai saputo la novità?", { body: notificationText, icon: iconImage });
 						}
 					});
 				}
