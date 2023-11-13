@@ -12,8 +12,8 @@
 		<meta charset="utf-8">
 		<title>03motorsport | Home</title>
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
-		<meta content="03motorsport, Meccatronica" name="keywords">
-		<meta content="03motorsport Azienda di Meccatronica" name="description">
+		<meta content="03motorsport, officina, officina meccatronica, azienda meccatronica, centro servizi meccatronici" name="keywords">
+		<meta content="03motorsport Officina Meccatronica" name="description">
 		
 		<meta name="apple-touch-fullscreen" content="yes">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -488,60 +488,61 @@
 					<div class="col-md-6">
 						<div class="wow fadeInUp" data-wow-delay="0.2s">
 							<p class="mb-4">Prenota un appuntamento tramite il form (a breve sarà attivo) o utilizza i nostri contatti principali (email o telefono) per ricevere subito assistenza. I nostri esperti sono a tua disposizione, e possono aiutarti in qualsiasi momento.</p>
-							<form>
+							<form id="formId" onsubmit="submitForm(event);">
 								<div class="row g-3">
 									<div class="col-md-6">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="name" placeholder="Il tuo nome" readonly="readonly">
+											<input type="text" class="form-control" id="name" placeholder="Il tuo nome" required="required">
 											<label for="name">Nome</label>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="surname" placeholder="Il tuo cognome" readonly="readonly">
+											<input type="text" class="form-control" id="surname" placeholder="Il tuo cognome" required="required">
 											<label for="name">Cognome</label>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating">
-											<input type="email" class="form-control" id="email" placeholder="La tua email" readonly="readonly">
+											<input type="email" class="form-control" id="email" placeholder="La tua email" required="required">
 											<label for="email">Email</label>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating">
-											<select id="service" class="form-select" disabled="disabled">
-												<option selected>Scegli un servizio</option>
+											<select id="service" class="form-select" required="required">
+												<option value="" selected>Scegli un servizio</option>
 												<option value="1">Test Diagnostici</option>
 												<option value="2">Revisione Motore</option>
 												<option value="3">Revisione File</option>
 												<option value="4">Cambio Olio</option>
+												<option value="5">Altro</option>
 											</select>
 											<label for="service">Servizio</label>
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="subject" placeholder="Oggetto" readonly="readonly">
+											<input type="text" class="form-control" id="subject" placeholder="Oggetto">
 											<label for="subject">Oggetto</label>
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-floating">
-											<textarea class="form-control" placeholder="Lascia un messaggio qui" id="message" style="height: 100px" readonly="readonly"></textarea>
+											<textarea class="form-control" placeholder="Lascia un messaggio qui" id="message" style="height: 100px"></textarea>
 											<label for="message">Messaggio</label>
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-switch">
-											<input class="form-check-input" type="checkbox" id="acceptTermsAndConditions" disabled="disabled" style="width: 2.5em !important; height: 1.5em !important;"/>
+											<input class="form-check-input" type="checkbox" id="acceptTermsAndConditions" onclick="enableSubmitForm();"/>
 											<label class="form-check-label" for="acceptTermsAndConditions">&nbsp;Ho letto e accetto i 
 												<a href="./termini-e-condizioni.html" target="_blank">termini e le condizioni</a> del servizio.
 											</label>
 										</div>
 									</div>
 									<div class="col-12">
-										<button class="btn btn-primary w-100 py-3" type="submit" disabled="disabled">Invia</button>
+										<button id="submitButtonId" class="btn btn-primary w-100 py-3" type="submit" disabled="disabled">Invia</button>
 									</div>
 								</div>
 							</form>
@@ -787,34 +788,20 @@
 
 		<script type="text/javascript">
 		
+			/****************************** FUNCTIONS & VARS *******************************/
+		
 			// Set defaults notification settings (https://notifyjs.jpillora.com/)
 			$.notify.defaults({ className: "info" });
 		
 			// Get main <pwa-install> element
 			var pwaInstall = document.getElementById("pwa-install");
-		
-			// Check Service Worker registration
-			if ("serviceWorker" in navigator) {
-				if (navigator.serviceWorker.controller) {
-					console.log("Active service worker found, no need to register");
-				} else {
-					navigator.serviceWorker.register('sw.js', {scope: '/'}).then(function (registration) {
-						console.log("Service worker registered");
-					});
-				}
-			}
-			
-			// Trigger Broadcast messages from Service Worker
-			const channel = new BroadcastChannel('sw-messages');
-			channel.addEventListener('message', event => {
-				console.log('Received', event.data);
-				$.notify(event.data.title, {position: "bottom-right"});
-			});
 			
 			// Show PWA Install Dialog
 			const installApp = () => {
-				pwaInstall.showDialog();
-				//pwaInstall.install();
+				if(window.location.host !== "" && window.location.host !== null && window.location.host !== undefined){
+					pwaInstall.showDialog();
+					//pwaInstall.install();
+				}
 			}
 			
 			// Trigger Background Sync
@@ -865,11 +852,74 @@
 				return false;
 			}
 			
-			if(isPwa()){
-			    document.querySelector("a[id='5']").style.display = "none";
-			}else{
-				document.querySelector("a[id='5']").style.display = "inline";
+			const enableSubmitForm = () => {
+				submitButtonId.disabled = !acceptTermsAndConditions.checked;
 			}
+			
+			const submitForm = event => {
+				event.preventDefault();
+				//$('#spinner').addClass("show");
+				console.log("submitted");
+			}
+			
+			const initialize = () => {
+				
+				// Check Service Worker registration
+				if ("serviceWorker" in navigator) {
+					if (navigator.serviceWorker.controller) {
+						console.log("Active service worker found, no need to register");
+					} else {
+						if(window.location.host !== "" && window.location.host !== null && window.location.host !== undefined){
+							navigator.serviceWorker.register('sw.js', {scope: '/'}).then(function (registration) {
+								console.log("Service worker registered");
+							}).catch(function(error) {
+								console.log("Error during Service Worker registration: ", error);
+							});
+						}
+					}
+				}
+				
+				// Trigger Broadcast messages from Service Worker
+				const channel = new BroadcastChannel('sw-messages');
+				channel.addEventListener('message', event => {
+					console.log('Received', event.data);
+					$.notify(event.data.title, {position: "bottom-right"});
+				});
+				
+				if(isPwa()){
+					document.querySelector("a[id='5']").style.display = "none";
+				}else{
+					document.querySelector("a[id='5']").style.display = "inline";
+				}
+			}
+			
+			const requestNotification = async => {
+				if (!("Notification" in window)) {
+					// Check if the browser supports notifications
+					console.log("This browser does not support desktop notification");
+				} else if (Notification.permission === "granted") {
+					// Check whether notification permissions have already been granted;
+					// if so, create a local notification
+					console.log("granted");
+					const notification = new Notification("Hi there!");
+				} else if (Notification.permission !== "denied") {
+					// We need to ask the user for permission
+					console.log("denied");
+					Notification.requestPermission().then((permission) => {
+						// If the user accepts, let's create a local notification
+						if (permission === "granted") {
+							console.log("granted");
+							const notification = new Notification("Hi there!");
+						}
+					});
+				}
+			} 
+			
+			/****************************** MAIN THREAD *******************************/
+			
+			initialize();
+			
+			/**************************************************************************/
 
 			/**document.getElementById('events-area').value = "";
 			const logMessage = (message) => {

@@ -115,27 +115,25 @@ self.addEventListener("updatefound", () => {
     }
 });
 
-// --- web push ---
+self.addEventListener('push', (event) => {
+ 	let payload = event.data.json();
+ 	let options = payload.notification;
+ 	let data = payload.data;
 
-// self.addEventListener('push', (event) => {
-// 	let payload = event.data.json();
-// 	let options = payload.notification;
-// 	// let data = payload.data;
+ 	options.data = {};
+ 	options.requireInteraction = true;
+ 	options.data.url = options.click_action || (event.currentTarget ? event.currentTarget.origin : null);
 
-// 	options.data = {};
-// 	options.requireInteraction = true;
-// 	options.data.url = options.click_action || (event.currentTarget ? event.currentTarget.origin : null);
+ 	options.body = options.body || 'Need your attention';
+ 	options.icon = options.icon || '/img/logo.png';
+ 	options.badge = options.badge || '/img/logo.png';
 
-// 	options.body = options.body || 'Need your attention';
-// 	options.icon = options.icon || '/images/logo-512.png';
-// 	options.badge = options.badge || '/images/badge-72.png';
+ 	let title = options.title;
 
-// 	let title = options.title;
-
-// 	event.waitUntil(
-// 		self.registration.showNotification(title, options)
-// 	);
-// });
+ 	event.waitUntil(
+ 		self.registration.showNotification(title, options)
+ 	);
+});
 
 // self.addEventListener('notificationclick', (event) => {
 // 	event.notification.close();
