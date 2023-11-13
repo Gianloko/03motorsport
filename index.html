@@ -550,7 +550,7 @@
 							    <h4 class="alert-heading">Ben fatto!</h4>
 							    <p>Verrai contattato il prima possibile da uno dei nostri operatori.</p>
 							    <hr>
-							    <p class="mb-0">Grazie per aver scelto <b>03motorsport</b>.</p>
+							    <p class="mb-0">Grazie per aver scelto <b>03motorsport</b>. Se hai bisogno di ulteriore supporto, <a onclick="resetFormAndReOpen();">compila nuovamente il form.</a></p>
 							</div>
 						</div>
 					</div>
@@ -963,6 +963,18 @@
 			
 			const isLocalHost = () => {
 				return window.location.host === "" || window.location.host === null || window.location.host === undefined;
+			}
+			
+			const resetFormAndReOpen = () => {
+				document.querySelector("#name").value    = null;
+				document.querySelector("#surname").value = null;
+				document.querySelector("#email").value   = null;
+				document.querySelector("#service").value = null;
+				document.querySelector("#subject").value = null;
+				document.querySelector("#message").value = null;
+				
+				formId.style.display = "inline";
+				formOnSuccessId.style.display = "none";
 			}
 			
 			/****************************** MAIN THREAD *******************************/
