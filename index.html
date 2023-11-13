@@ -546,6 +546,12 @@
 									</div>
 								</div>
 							</form>
+							<div id="formOnSuccessId" style="display: none;" class="alert alert-danger" role="alert">
+							    <h4 class="alert-heading">Ben fatto!</h4>
+							    <p>Verrai contattato il prima possibile da uno dei nostri operatori.</p>
+							    <hr>
+							    <p class="mb-0">Grazie per aver scelto <b>03motorsport</b>.</p>
+							</div>
 						</div>
 					</div>
 					<div class="col-12">
@@ -881,9 +887,21 @@
 				
 				console.log(responseJson);
 				
-				$('#spinner').removeClass("show");
+				if(responseJson.status === "OK"){
+					document.querySelector("#name").value    = null;
+					document.querySelector("#surname").value = null;
+					document.querySelector("#email").value   = null;
+					document.querySelector("#service").value = null;
+					document.querySelector("#subject").value = null;
+					document.querySelector("#message").value = null;
+					
+					formId.style.display = "none";
+					formOnSuccessId.style.display = "inline";
+				}else{
 				
-				//console.log("submitted");
+				}
+				
+				$('#spinner').removeClass("show");
 			}
 			
 			const initialize = () => {
