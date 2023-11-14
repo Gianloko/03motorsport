@@ -512,11 +512,11 @@
 										<div class="form-floating">
 											<select id="service" class="form-select" required="required">
 												<option value="" selected>Scegli un servizio</option>
-												<option value="1">Test Diagnostici</option>
-												<option value="2">Revisione Motore</option>
-												<option value="3">Revisione File</option>
-												<option value="4">Cambio Olio</option>
-												<option value="5">Altro</option>
+												<option value="Test Diagnostici">Test Diagnostici</option>
+												<option value="Revisione Motore">Revisione Motore</option>
+												<option value="Revisione File">Revisione File</option>
+												<option value="Cambio Olio">Cambio Olio</option>
+												<option value="Altro">Altro</option>
 											</select>
 											<label for="service">Servizio</label>
 										</div>
@@ -985,6 +985,7 @@
 				formId.style.display = "inline";
 				formOnSuccessId.style.display = "none";
 				
+				submitButtonId.disabled = true;
 				acceptTermsAndConditions.checked = false;
 			}
 			
