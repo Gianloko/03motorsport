@@ -552,6 +552,12 @@
 							    <hr>
 							    <p class="mb-0">Grazie per aver scelto <b>03motorsport</b>. Se hai bisogno di ulteriore supporto, <a href="#" onclick="resetFormAndReOpen(event);">compila nuovamente il form.</a></p>
 							</div>
+							<div id="formOnErrorId" style="display: none;" class="alert alert-danger" role="alert">
+							    <h4 class="alert-heading">Errore durante il salvataggio dei dati!</h4>
+							    <p>Purtroppo non è stato possibile salvare la tua richiesta.</p>
+							    <hr>
+							    <p class="mb-0">Prova a ricontattarci inviando un'email a <a href="mailto:paolocalenzo@gmail.com" target="_blank">paolocalenzo@gmail.com</a> o chiama il numero <a href="tel:+393274487509">+39 327 448 7509</a>.</p>
+							</div>
 						</div>
 					</div>
 					<div class="col-12">
@@ -898,7 +904,8 @@
 					formId.style.display = "none";
 					formOnSuccessId.style.display = "inline";
 				}else{
-				
+					formId.style.display = "none";
+					formOnErrorId.style.display = "inline";
 				}
 				
 				$('#spinner').removeClass("show");
